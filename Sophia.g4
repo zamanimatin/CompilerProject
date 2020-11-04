@@ -3,6 +3,29 @@ grammar Sophia;
 
 
 
+
+
+variable :
+    IDENTIFIER ':' VARIABLE;
+
+localvariable :
+    // Method grammar should be here
+    VARIABLE;
+
+
+functionpointer:
+    IDENTIFIER ':' '<' (VOID | ((INT | BOOL | STRING) ',')* (INT | BOOL | STRING)) '->' (INT | STRING | BOOL | VOID) '>' END;
+
+
+list:
+    (IDENTIFIER ':' LIST LPAR ((VARIABLE | functionpointer)',')* (VARIABLE | functionpointer) RPAR END )|
+    (IDENTIFIER ':' LIST LPAR (IDENTIFIER ':' ((VARIABLE | functionpointer)',')* (VARIABLE | functionpointer)) RPAR END) | 
+    (IDENTIFIER ':' LIST LPAR (INTNUMBER '#' (VARIABLE | functionpointer)) RPAR END);
+
+
+
+
+
 COMMENT: '//' ~('\n')* '\n';
 
 // KEYWORDS
@@ -36,7 +59,7 @@ NEW: 'new';
 PRINT: 'print';
 
 IDENTIFIER: ([a-z] | [A-Z] | '_') ([0-9] | [a-z] | [A-Z] | '_')* ;
-
+INTNUMBER: [0-9]+;
 // OPERATORS
 LPAR: '(';
 RPAR: ')';
