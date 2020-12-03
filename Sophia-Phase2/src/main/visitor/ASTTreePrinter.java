@@ -44,162 +44,205 @@ public class ASTTreePrinter extends Visitor<Void> {
         System.out.println("Line:" + Integer.toString(constructorDeclaration.getLine()) + ":" + constructorDeclaration.toString());
         for(VarDeclaration varDec : constructorDeclaration.getArgs())
             varDec.accept(this);
+        for(VarDeclaration varDec : constructorDeclaration.getLocalVars())
+            varDec.accept(this);
+        for(Statement st : constructorDeclaration.getBody())
+            st.accept(this);
         return null;
     }
 
     @Override
     public Void visit(MethodDeclaration methodDeclaration) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(methodDeclaration.getLine()) + ":" + methodDeclaration.toString());
+        for(VarDeclaration varDec : methodDeclaration.getArgs())
+            varDec.accept(this);
+        for(VarDeclaration varDec : methodDeclaration.getLocalVars())
+            varDec.accept(this);
+        for(Statement st : methodDeclaration.getBody())
+            st.accept(this);
         return null;
     }
 
     @Override
     public Void visit(FieldDeclaration fieldDeclaration) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(fieldDeclaration.getLine()) + ":" + fieldDeclaration.toString());
+        fieldDeclaration.getVarDeclaration().accept(this);
         return null;
     }
 
     @Override
     public Void visit(VarDeclaration varDeclaration) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(varDeclaration.getLine()) + ":" + varDeclaration.toString());
+        varDeclaration.getVarName().accept(this);
         return null;
     }
 
     @Override
     public Void visit(AssignmentStmt assignmentStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(assignmentStmt.getLine()) + ":" + assignmentStmt.toString());
+        assignmentStmt.getlValue().accept(this);
+        assignmentStmt.getrValue().accept(this);
         return null;
     }
 
     @Override
     public Void visit(BlockStmt blockStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(blockStmt.getLine()) + ":" + blockStmt.toString());
+        for(Statement st : blockStmt.getStatements())
+            st.accept(this);
         return null;
     }
 
     @Override
     public Void visit(ConditionalStmt conditionalStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(conditionalStmt.getLine()) + ":" + conditionalStmt.toString());
+        conditionalStmt.getCondition().accept(this);
+        conditionalStmt.getThenBody().accept(this);
+        conditionalStmt.getElseBody().accept(this);
         return null;
     }
 
     @Override
     public Void visit(MethodCallStmt methodCallStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(methodCallStmt.getLine()) + ":" + methodCallStmt.toString());
+        methodCallStmt.getMethodCall().accept(this);
         return null;
     }
 
     @Override
     public Void visit(PrintStmt print) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(print.getLine()) + ":" + print.toString());
+        print.getArg().accept(this);
         return null;
     }
 
     @Override
     public Void visit(ReturnStmt returnStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(returnStmt.getLine()) + ":" + returnStmt.toString());
+        returnStmt.getReturnedExpr().accept(this);
         return null;
     }
 
     @Override
     public Void visit(BreakStmt breakStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(breakStmt.getLine()) + ":" + breakStmt.toString());
         return null;
     }
 
     @Override
     public Void visit(ContinueStmt continueStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(continueStmt.getLine()) + ":" + continueStmt.toString());
         return null;
     }
 
     @Override
     public Void visit(ForeachStmt foreachStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(foreachStmt.getLine()) + ":" + foreachStmt.toString());
+        foreachStmt.getVariable().accept(this);
+        foreachStmt.getList().accept(this);
+        foreachStmt.getBody().accept(this);
         return null;
     }
 
     @Override
     public Void visit(ForStmt forStmt) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(forStmt.getLine()) + ":" + forStmt.toString());
+        forStmt.getInitialize().accept(this);
+        forStmt.getCondition().accept(this);
+        forStmt.getUpdate().accept(this);
+        forStmt.getBody().accept(this);
         return null;
     }
 
     @Override
     public Void visit(BinaryExpression binaryExpression) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(binaryExpression.getLine()) + ":" + binaryExpression.toString());
+        binaryExpression.getFirstOperand().accept(this);
+        binaryExpression.getSecondOperand().accept(this);
         return null;
     }
 
     @Override
     public Void visit(UnaryExpression unaryExpression) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(unaryExpression.getLine()) + ":" + unaryExpression.toString());
+        unaryExpression.getOperand().accept(this);
         return null;
     }
 
     @Override
     public Void visit(ObjectOrListMemberAccess objectOrListMemberAccess) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(objectOrListMemberAccess.getLine()) + ":" + objectOrListMemberAccess.toString());
+        objectOrListMemberAccess.getInstance().accept(this);
+        objectOrListMemberAccess.getMemberName().accept(this);
         return null;
     }
 
     @Override
     public Void visit(Identifier identifier) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(identifier.getLine()) + ":" + identifier.toString());
         return null;
     }
 
     @Override
     public Void visit(ListAccessByIndex listAccessByIndex) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(listAccessByIndex.getLine()) + ":" + listAccessByIndex.toString());
+        listAccessByIndex.getInstance().accept(this);
+        listAccessByIndex.getIndex().accept(this);
         return null;
     }
 
     @Override
     public Void visit(MethodCall methodCall) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(methodCall.getLine()) + ":" + methodCall.toString());
+        methodCall.getInstance().accept(this);
+        for(Expression ex : methodCall.getArgs())
+            ex.accept(this);
         return null;
     }
 
     @Override
     public Void visit(NewClassInstance newClassInstance) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(newClassInstance.getLine()) + ":" + newClassInstance.toString());
+        for(Expression ex : newClassInstance.getArgs())
+            ex.accept(this);
         return null;
     }
 
     @Override
     public Void visit(ThisClass thisClass) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(thisClass.getLine()) + ":" + thisClass.toString());
         return null;
     }
 
     @Override
     public Void visit(ListValue listValue) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(listValue.getLine()) + ":" + listValue.toString());
+        for(Expression ex : listValue.getElements())
+            ex.accept(this);
         return null;
     }
 
     @Override
     public Void visit(NullValue nullValue) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(nullValue.getLine()) + ":" + nullValue.toString());
         return null;
     }
 
     @Override
     public Void visit(IntValue intValue) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(intValue.getLine()) + ":" + intValue.toString());
         return null;
     }
 
     @Override
     public Void visit(BoolValue boolValue) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(boolValue.getLine()) + ":" + boolValue.toString());
         return null;
     }
 
     @Override
     public Void visit(StringValue stringValue) {
-        //Todo
+        System.out.println("Line:" + Integer.toString(stringValue.getLine()) + ":" + stringValue.toString());
         return null;
     }
 
